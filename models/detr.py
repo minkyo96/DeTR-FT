@@ -31,6 +31,7 @@ class DETR(nn.Module):
             aux_loss: True if auxiliary decoding losses (loss at each decoder layer) are to be used.
         """
         super().__init__()
+        
         self.num_queries = num_queries
         self.transformer = transformer
         hidden_dim = transformer.d_model
@@ -317,6 +318,7 @@ def build(args):
         num_classes = 250
     device = torch.device(args.device)
 
+
     backbone = build_backbone(args)
 
     transformer = build_transformer(args)
@@ -346,6 +348,8 @@ def build(args):
     losses = ['labels', 'boxes', 'cardinality']
     if args.masks:
         losses += ["masks"]
+
+    num_classes = args.want_class + 1
     criterion = SetCriterion(num_classes, matcher=matcher, weight_dict=weight_dict,
                              eos_coef=args.eos_coef, losses=losses)
     criterion.to(device)

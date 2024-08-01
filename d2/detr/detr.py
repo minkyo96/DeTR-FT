@@ -76,7 +76,7 @@ class Detr(nn.Module):
         super().__init__()
 
         self.device = torch.device(cfg.MODEL.DEVICE)
-
+        
         self.num_classes = cfg.MODEL.DETR.NUM_CLASSES
         self.mask_on = cfg.MODEL.MASK_ON
         hidden_dim = cfg.MODEL.DETR.HIDDEN_DIM
